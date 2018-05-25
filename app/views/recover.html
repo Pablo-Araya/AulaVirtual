@@ -1,0 +1,56 @@
+<div ng-include="recover.plantilla.url"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Recuperar Password</div>
+
+                <div class="panel-body">
+
+                    <div ng-if="recover.error !== undefined" class="alert alert-danger" role="alert">
+                        <strong>Error!</strong><div>{{recover.error}}</div>
+                    </div>
+
+                    <div ng-if="recover.success !== undefined" class="alert alert-success" role="alert">
+                        Bienvenido: <strong>{{recover.person}}</strong>
+                    </div>
+
+                    <form class="form-horizontal" method="POST">
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">Email :</label>
+                            <div class="col-md-6">
+                                <input id="email" 
+                                       type="email" 
+                                       class="form-control" 
+                                       name="email" 
+                                       value=""
+                                       placeholder="Ingrese correo electr&oacute;nico" 
+                                       required 
+                                       autofocus
+                                       ng-model="recover.email">
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 text-right">
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        ng-click="recoverSend()">
+                                    Enviar
+                                </button>
+                                <button class="btn btn-default"
+                                        ng-click="loginView()">
+                                    Volver
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2018<br>UNAB</footer>
+</div>
