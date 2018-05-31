@@ -2,21 +2,16 @@
 
 /**
  * @ngdoc function
- * @name AulaVirtualApp.controller:PlantillaCtrl
+ * @name AulaVirtualApp.controller:FooterCtrl
  * @description
- * # PlantillaCtrl
+ * # FooterCtrl
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('PlantillaCtrl', function () {
+  .controller('FooterCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    var vm = this;
-    vm.plantilla = {
-    	url: 'views/plantilla.html'
-    };
-
   });

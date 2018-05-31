@@ -1,6 +1,6 @@
-<div ng-include="recover.plantilla.url"></div>
+<div ng-include="recover.layout.header"></div>
 
-<div class="container">
+<div class="container container-top container-bottom" ng-controller="RecoverCtrl as ctrl">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -52,5 +52,6 @@
             </div>
         </div>
     </div>
-    <footer>Copyright &copy; 2018<br>UNAB</footer>
 </div>
+
+<div class="footer-bottom" ng-include="recover.layout.footer"></div>

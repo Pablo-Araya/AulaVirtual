@@ -8,15 +8,16 @@
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('RecoverCtrl', function ($scope, $location, recover) {
+  .controller('RecoverCtrl', function ($scope, $location) {
     this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
 		'Karma'
     ];
     var vm = this;
-    vm.plantilla = {
-    	url: 'views/plantilla.html'
+    vm.layout = {
+        header: 'views/header.html',
+    	footer: 'views/footer.html',
     };
 
     $scope.recover ={}

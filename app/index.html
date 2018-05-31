@@ -9,12 +9,17 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/fontawesome-all.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- favicon -->
+    <link rel="apple-touch-icon" href="icon/favicon.png">
+    <link rel="icon" href="icon/favicon.png" type="image/png" sizes="16x16">    
+    <link rel="shortcut icon" href="icon/favicon.ico">
+    <!-- end favicon -->
     <base href="/">
   </head>
   <body ng-app="AulaVirtualApp">
@@ -24,9 +29,7 @@
 
     <!-- Add your site or application content here -->
 
-
     <div ng-view=""></div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -41,7 +44,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -52,19 +55,28 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-touch/bower_components/angular-bootstrap-switch/src/directives/bsSwitch.js"></script>
+    <script src="bower_components/bootstrap-angular-validation/dist/bootstrap-angular-validation-all.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+        <script src="scripts/controllers/footer.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/plantilla.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/logout.js"></script>
         <script src="scripts/controllers/recover.js"></script>
-        <script src="scripts/services/user.js"></script>
-        <script src="scripts/services/recover.js"></script>
         <script src="scripts/controllers/register.js"></script>
-        <script src="scripts/services/register.js"></script>
+        <script src="scripts/controllers/misCursos.js"></script>
+        <script src="scripts/controllers/misCatedras.js"></script>
+        <script src="scripts/controllers/categoria.js"></script>
+        <script src="scripts/controllers/catedra.js"></script>
+        <script src="scripts/controllers/clase.js"></script>
+        <script src="scripts/controllers/error.js"></script>
+        <script src="scripts/services/userService.js"></script>
+        <script src="scripts/services/authService.js"></script>
+        <script src="scripts/services/catedraService.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -1,0 +1,76 @@
+<div class="header" ng-controller="HeaderCtrl">
+  <nav class="navbar navbar-default nav-container" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="images/logoAULA-header.png">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <!-- <li class="active"><a href="#">Link</a></li> -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-th"></span> Categor&iacute;as <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="categoria in categorias" class="block">
+                <a ng-href="/categoria/{{categoria.id}}" class="category-bar">
+                  <i class="{{categoria.icon}} category-icon"></i> {{categoria.title}}
+                  <i class="fas fa-angle-right arrow-right"></i>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <div class="input-group nav-form">
+              <input type="text" class="form-control" placeholder="Buscador de Cursos">
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="submit">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </form>
+
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li ng-show="{{authToken.show}}" ng-class="{'nav-active': '/cursos' == activeURL}" ng-click="linkMenu('/cursos')">
+            <a href="#" class="nav-link">Mis Cursos</a>
+          </li>
+          
+          <li ng-show="{{authToken.show}}" ng-class="{'nav-active': '/logout' == activeURL}" ng-click="linkMenu('/logout')">
+            <a href="#" class="nav-link">
+              <span class="glyphicon glyphicon-log-out"></span> LogOut
+            </a>
+          </li>
+
+          <li ng-show="{{!authToken.show}}" ng-class="{'nav-active': '/register' == activeURL}" ng-click="linkMenu('/register')" class="nav-link">
+            <a href="#">
+              <span class="glyphicon glyphicon-user"></span> Registrarse
+            </a>
+          </li>
+
+          <li ng-show="{{!authToken.show}}" ng-class="{'nav-active': '/' == activeURL}" ng-click="linkMenu('/')" class="nav-link">
+            <a href="#">
+              <span class="glyphicon glyphicon-log-in"></span> Login
+            </a>
+          </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
+</div>

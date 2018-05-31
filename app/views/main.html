@@ -1,73 +1,75 @@
-<div ng-include="main.plantilla.url"></div>
+<div ng-include="main.layout.header"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+<div class="container container-top container-bottom">
+	<div class="row">
+		<div class="col-md-12 panel-parent">
+			<div class="panel panel-default">
 
-                <div class="panel-body">
+				<div class="panel-body container-top">
 
-                    <div ng-if="user.error !== undefined" class="alert alert-danger" role="alert">
-                        <strong>Error!</strong><div>{{user.error}}</div>
-                    </div>
+					<div ng-if="user.error !== undefined" class="alert alert-danger" role="alert">
+						<strong>Error!</strong><div>{{user.error}}</div>
+					</div>
 
-                    <div ng-if="user.success !== undefined" class="alert alert-success" role="alert">
-                        Bienvenido: <strong>{{user.person}}</strong>
-                    </div>
+					<div ng-if="user.success !== undefined" class="alert alert-success" role="alert">
+						Bienvenido: <strong>{{user.person}}</strong>
+					</div>
 
-                    <form class="form-horizontal" method="POST">
+					<form class="form-horizontal" name="loginForm" id="loginForm" ng-submit="submitForm(loginForm.$invalid)" method="POST" data-toggle="validator" role="form">
 
-                        <div class="form-group">
-                            <label for="username" class="col-md-4 control-label">Usuario :</label>
-                            <div class="col-md-6">
-                                <input id="username" 
-                                       type="text" 
-                                       class="form-control" 
-                                       name="username" 
-                                       value=""
-                                       placeholder="Nombre Usuario" 
-                                       required 
-                                       autofocus
-                                       ng-model="user.username">
-                                <span class="help-block with-errors"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Password :</label>
-                            <div class="col-md-6">
-                                <input id="password" 
-                                       type="password" 
-                                       class="form-control" 
-                                       name="password"
-                                       placeholder="Password"  
-                                       required
-                                       ng-model="user.password">
-                                <span class="help-block with-errors"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-2 text-right">
-                                <button type="submit"
-                                        class="btn btn-primary"
-                                        ng-click="userLogin()">
-                                    Ingresar
-                                </button>
-                                <button class="btn btn-default"
-                                        ng-click="userRegister()">
-                                    Registrarse
-                                </button>
-                                <div>
-                                    <a href ng-click="userRecover()">Olvid&oacute; su Contrase&ntilde;a?</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer>Copyright &copy; 2018<br>UNAB</footer>
+						<div class="form-group" id="usernameGroup">
+							<div class="col-md-12">
+								<input id="username" 
+									   type="text" 
+									   class="form-control input-login-control" 
+									   name="username" 
+									   value=""
+									   placeholder="Nombre Usuario" 
+									   required 
+									   data-div-parent="#usernameGroup"
+									   ng-model="user.username">
+								<span class="help-block with-errors"></span>
+							</div>
+						</div>
+						
+						<div class="form-group" id="passwordGroup">
+							<div class="col-md-12">
+								<input id="password" 
+									   type="password" 
+									   class="form-control input-login-control" 
+									   name="password"
+									   placeholder="Password"  
+									   required
+									   data-div-parent="#passwordGroup"
+									   ng-model="user.password">
+								<span class="help-block with-errors"></span>
+							</div>
+						</div>
+						
+						<div class="col-md-12 text-right">
+							<div class="form-group">
+								<button type="submit"
+										class="btn btn-primary"
+										ng-click="userLogin()">
+									Ingresar
+								</button>
+								<button class="btn btn-success"
+										ng-click="userRegister()">
+									Registrarse
+								</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-12 text-right">
+								<a href ng-click="userRecover()">Olvid&oacute; su Contrase&ntilde;a?</a>
+							</div>
+						</div>
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<div class="footer-bottom" ng-include="main.layout.footer"></div>

@@ -1,0 +1,26 @@
+<div ng-include="login.layout.header"></div>
+
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil</a></li>
+	  	<li class="active">{{user.nombre}} {{user.lastName}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="{{user.gender}}">a</span><span ng-show="{{!user.gender}}">o</span>
+		{{user.nombre}} {{user.lastName}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email}}<br>
+		Perfil: {{getRole(user.role_id)}}
+	</div>
+</div>
+
+<div class="container container-top container-bottom" id="alertBox">
+	<div class="alert alert-info text-center">
+		<i class="fas fa-sync fa-spin fa-2x"></i><br>
+		Cargando...
+	</div>
+</div>
+
+<div class="footer-bottom" ng-include="login.layout.footer"></div>

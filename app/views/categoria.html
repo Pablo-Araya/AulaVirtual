@@ -1,0 +1,28 @@
+<div ng-include="categoria.layout.header"></div>
+
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Categor&iacute;as</a></li>
+	  	<li class="active">{{category.title}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		{{category.title}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{category.description}}
+	</div>
+</div>
+
+<div ng-show="{{!catedras.empty}}" class="container margin-top-45 alert alert-warning font-info">
+	<strong>Lo sentimos</strong><br>
+	A&uacute;n no existen Cursos en esta categor&iacute;a
+</div>
+
+<div ng-show="{{catedras.empty}}" class="container container-top container-bottom">
+	<div class="text-center">Estos son tus categoria lolito !... {{category}} </div>	
+</div>
+
+
+
+<div class="footer-bottom" ng-include="categoria.layout.footer"></div>

@@ -6,7 +6,9 @@
 }
 
 body {
+  background-color: #f7f8fa; 
   padding: 0;
+  color: #666 !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -30,11 +32,74 @@ body {
   padding-bottom: 19px;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
+.category-bar {
+  line-height: 1.8em !important;
+}
+
+.category-bar:hover {
+  color:#006699;
+}
+
+.category-icon {
+  padding: 2px 5px 2px 0px;
   color: #777;
+}
+
+.arrow-right {
+  position: absolute;
+  right: 10px;
+  color: #d8d8d8;
+  font-size: 0.9em;
+  padding-top: 4px;
+}
+
+/* container ng-view*/
+.container-top {
+  padding-top: 45px;
+}
+
+.container-bottom {
+  padding-bottom: 50px;
+}
+
+.margin-top-45 {
+  margin-top: 45px;
+}
+
+/* Custom page footer */
+.footer-bottom{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  color: #686f7a;
+  background-color: #fff; 
   border-top: 1px solid #e5e5e5;
+  padding-top: 10px;
+}
+
+.footer-logo {
+  vertical-align: middle;
+  margin-right: 20px; 
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+
+.footer hr{
+  margin: 0;
+}
+
+.footer hr.hr-primary {
+  border-top: 6px solid #ec5252;
+  width: 100%;  
 }
 
 .container-narrow > hr {
@@ -57,6 +122,106 @@ body {
 }
 .marketing p + h4 {
   margin-top: 28px;
+}
+
+/* NavBar CSS */
+.nav-container{
+  background: #fff !important;
+  box-shadow: 0 0 1px 1px rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
+  display: block;
+  position: fixed;
+  z-index: 1010;
+  width: 100%;
+  left: 0px;
+}
+
+.nav-form{
+  width:200%;
+}
+.navbar-brand {
+  padding: 0px; /* firefox bug fix */
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 10px; /* firefox bug fix */
+  width: auto;
+}
+
+.nav-link:hover {
+  background-color: #f3f3f3 !important;
+  border-radius: 0px;
+}
+.nav-active {
+  background-color: #f3f3f3 !important;
+}
+li.nav-active a {
+  color: #000 !important;
+}
+
+/* panel-login */
+.panel-default {
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+  background-color: #fff !important;
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+}
+
+.panel-body button {
+  width: 120px;
+}
+
+/* categorias */
+.breadcrumb-header {
+  background: #29303b !important;
+  width: 100%;
+  position: relative;
+  top: 22px;
+  left: 0;
+  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 0;
+  color: #fff;
+  font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.43;
+}
+
+.breadcrumb {
+  background-color: transparent !important;
+}
+
+.breadcrumb li.active {
+  color: #fff !important;
+}
+
+.breadcrumb-title {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.287;
+  margin: 0;
+}
+
+.font-info {
+  font-size: 1.5em;
+}
+
+
+
+/* Responsive: mobile */
+@media screen and (max-width: 960px) {
+  .nav-form{
+    width:100%;
+  }
+}
+
+@media screen and (max-width: 812px) {
+  li.nav-link a {
+    font-size: 0;
+  }
+  li.nav-link a span{
+    font-size: 14px !important;
+    line-height: 0em;
+  }
 }
 
 /* Responsive: Portrait tablets and up */

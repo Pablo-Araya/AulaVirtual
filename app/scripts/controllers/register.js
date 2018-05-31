@@ -8,25 +8,26 @@
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('RegisterCtrl', function ($scope, $location, register) {
+  .controller('RegisterCtrl', function ($scope, $location, userService) {
     this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
 		'Karma'
     ];
     var vm = this;
-    vm.plantilla = {
-    	url: 'views/plantilla.html'
+    vm.layout = {
+    	header: 'views/header.html',
+        footer: 'views/footer.html'
     };
 
     $scope.register = {}
-
+    $scope.user;
     $scope.registerSend = function(){
     	if($scope.register.email == undefined) {
             $scope.register.error = "Ingrese campo requerido";
             $scope.register.success = undefined;
         } else {
-            register.registerPass($scope.register)
+            userService.registerUser($scope.register)
             .then(
                 function() {
                     $scope.register.error = undefined;
