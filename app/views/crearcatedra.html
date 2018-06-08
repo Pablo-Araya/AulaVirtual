@@ -1,0 +1,116 @@
+<div ng-include="crearCatedra.layout.header"></div>
+
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
+</div>
+
+<div class="container container-top container-bottom">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-myHeading">
+                	<h4>
+                		<i class="fas fa-plus-circle"></i> Nueva C&aacute;tedra
+                	</h4>
+                </div>
+
+                <div class="panel-body container-top">
+
+                    <div ng-show="catedra.error" class="alert alert-danger" role="alert">
+                        <strong>Error:</strong>
+                        <div>{{catedra.message}}</div>
+                    </div>
+                    
+                    <div ng-show="catedra.success" class="alert alert-success" role="alert">
+                        Felicidades: <strong>{{catedra.message}}</strong>
+                    </div>
+                    
+                    <form class="form-horizontal" name="newCatedraForm" id="newCatedraForm" ng-submit="submitForm(newCatedraForm.$invalid)" data-toggle="validator" role="form">
+
+                        <div class="form-group">
+                            <label for="categoria" class="col-md-12 control-label label-left">Categor&iacute;a :</label>
+                            <div class="col-md-12">
+                                <select id="categoria"  
+                                      	ng-model="catedra.category_id"
+                                      	class="form-control"
+                                      	ng-options="categoria.id as categoria.title for categoria in categorias"
+                                      	required >
+									<option value="">Seleccione una Categoría</option>
+								</select>
+								<input type="hidden"  
+                                       ng-model="catedra.teacher_id"
+                                       value="{{user.id}}">
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-md-12 control-label label-left">T&iacute;tulo :</label>
+                            <div class="col-md-12">
+                                <input id="title"
+                                	   type="text"  
+                                       ng-model="catedra.title"
+                                       class="form-control"
+                                       required >
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-md-12 control-label label-left">Descripci&oacute;n :</label>
+                            <div class="col-md-12">
+                                <textarea id="description"
+                                	   	  type="text"  
+                                       	  ng-model="catedra.description"
+                                       	  rows="4"
+                                       	  class="form-control"
+                                       	  required >
+                                </textarea>
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imgSrc" class="col-md-12 control-label label-left">Imagen Portada :</label>
+                            <div class="col-md-12">
+                                <input type="file" ng-file-select="onFileSelect($files)" ng-model="catedra.imageSrc" id="image_file">
+                                <div class="text-center">
+                                    <b>Vista Previa:</b><br />
+                                    <i ng-hide="catedra.imageSrc">No ha seleccionado ninguna imagen</i>
+                                    <img ng-src="{{catedra.imageSrc}}" class="img-thumbnail img-thumb"/>
+                                </div>
+                            </div>      
+                        </div>
+
+						<div class="col-md-12 text-right">
+                            <div class="form-group">
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        ng-click="newCatedra(catedra)">
+                                    Crear
+                                </button>
+                                <button class="btn btn-success"
+                                        ng-click="misCatedrasView()">
+                                    Volver
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>
+
+<div class="footer-bottom" ng-include="crearCatedra.layout.footer"></div>

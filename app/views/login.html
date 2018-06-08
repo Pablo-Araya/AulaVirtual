@@ -3,16 +3,15 @@
 <div class="breadcrumb-header">
 	<ol class="breadcrumb">
 		<li><a href="/"><i class="fas fa-home"></i></a></li>
-	  	<li><a href="#">Perfil</a></li>
-	  	<li class="active">{{user.nombre}} {{user.lastName}}</li>
+	  	<li><a href="#">Perfil: {{getRole(user.role_id)}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
 	</ol>
 	<div class="breadcrumb-title container-fluid">
-		Bienvenid<span ng-show="{{user.gender}}">a</span><span ng-show="{{!user.gender}}">o</span>
-		{{user.nombre}} {{user.lastName}}
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
 	</div>
 	<div class="breadcrumb-body container-fluid">
-		{{user.email}}<br>
-		Perfil: {{getRole(user.role_id)}}
+		{{user.email | lowercase}} 
 	</div>
 </div>
 

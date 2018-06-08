@@ -28,14 +28,18 @@ angular.module('AulaVirtualApp')
         });
       },
 
-      registerUser: function(){
-        alert('registrado');
+      registerUser: function(userParams){
+        return $http({
+          method: 'POST',
+          url: 'http://localhost:3000/api/v1/users',
+          data: userParams
+        });
       },
 
       getMisCursos: function(user){
         return $http({
           method: 'GET',
-          url: 'http://localhost:3000/api/v1/users/'+user+'/cursos',
+          url: 'http://localhost:3000/api/v1/users/'+user+'/misCursos',
           data: user
         });
       },
@@ -43,7 +47,7 @@ angular.module('AulaVirtualApp')
       getMisCatedras: function(user){
         return $http({
           method: 'GET',
-          url: 'http://localhost:3000/api/v1/users/'+user+'/cursos',
+          url: 'http://localhost:3000//api/v1/users/'+user+'/misCatedras',
           data: user
         });
       },

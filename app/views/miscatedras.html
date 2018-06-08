@@ -1,7 +1,70 @@
 <div ng-include="misCatedras.layout.header"></div>
 
-<div class="container container-top container-bottom">
-	<div class="text-center">Estos son tus cátedras profe !...</div>	
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
 </div>
+
+<div ng-show="!catedras.show">
+	<div class="container margin-top-45 alert alert-warning font-info">
+		<strong>A&uacute;n no ha creado ninguna C&aacute;tedra</strong>!<br>
+		<i>Puedes hacerlo presionando el bot&oacute;n de abajo</i>
+	</div>
+	<div class="container-fluid text-center container-top container-bottom">
+		<button type="button"
+				class="btn btn-success btn-lg"
+				ng-click="crearCatedra()">
+			<i class="fas fa-plus-circle"></i> Crear C&aacute;tedra
+		</button>
+	</div> 
+</div>
+
+<div ng-show="catedras.show" class="container-fluid container-top container-bottom">
+
+	<div class="row-card container-top container-bottom">
+		<div class="col-md-12">
+			<div class="col-md-2 card-container-bottom card-container-size" ng-repeat="catedra in catedras.misCatedras">
+				<div class="card" ng-click="viewCatedra(catedra.id)">
+					<img ng-src="{{catedra.img}}" alt="Avatar" class="card-avatar">
+					<div class="card-container">
+						<div class="card-title">{{catedra.title}}</div> 
+						<div class="card-instructor">{{callMyTeacher()}}</div>
+						<div class="card-stats">
+							<span class="card-stats-stars" id="rate{{catedra.id}}">
+								<fieldset class="rating">
+									{{callStarSet(catedra.id)}}
+								</fieldset>
+							</span>
+							<span class="card-stats-nota">{{callMyAvg(catedra.id) | number:1}}</span>
+							<div class="card-stats-nota-count">
+								({{callCountVotes(catedra.id) | number:0}} voto{{callCountVotesText(catedra.id)}})
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{getAvg()}}
+	</div>
+
+	<div class="container-fluid text-center container-top container-bottom">
+		<button type="button"
+				class="btn btn-success btn-lg"
+				ng-click="crearCatedra()">
+			<i class="fas fa-plus-circle"></i> Añadir C&aacute;tedra
+		</button>
+	</div> 
+</div>
+<div class="col-md-12 spacer"></div>
 
 <div class="footer-bottom" ng-include="misCatedras.layout.footer"></div>

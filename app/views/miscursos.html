@@ -1,7 +1,55 @@
-<div ng-include="misCursos.layout.header"></div>
+<div ng-include="'views/header.html'"></div>
 
-<div class="container container-top container-bottom">
-	<div class="text-center">Estos son tus cursos lolito !...</div>	
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
 </div>
 
-<div class="footer-bottom" ng-include="misCursos.layout.footer"></div>
+<div ng-show="!viewsAny.show">
+	<div class="container margin-top-45 alert alert-warning font-info">
+		<strong>¿Qu&eacute; est&aacute;s esperando?</strong><br>
+		A&uacute;n no te inscribes en ning&uacute;n Curso !<br>
+		<i>Puedes hacerlo busc&aacute;ndolo por categor&iacute;a</i>
+	</div>
+</div>
+
+<div ng-show="viewsAny.show" class="container-fluid container-top container-bottom">
+	<div class="row-card container-top container-bottom">
+		<div class="col-md-12">
+			<div class="col-md-2 card-container-bottom card-container-size" ng-repeat="curso in misCursos">
+				<div class="card" ng-click="viewCurso(curso.id)">
+					<img ng-src="{{curso.img}}" alt="Avatar" class="card-avatar">
+					<div class="card-container">
+						<div class="card-title">{{curso.title}}</div> 
+						<div class="card-instructor">{{callMyTeacher(curso.id)}}</div>
+						<div class="card-stats">
+							<span class="card-stats-stars" id="rate{{curso.id}}">
+								<fieldset class="rating">
+									{{callStarSet(curso.id)}}
+								</fieldset>
+							</span>
+							<span class="card-stats-nota">{{callMyAvg(curso.id) | number:1}}</span>
+							<div class="card-stats-nota-count">
+								({{callCountVotes(curso.id) | number:0}} voto{{callCountVotesText(curso.id)}})
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{getInstructor_getAvg()}}
+	</div>	
+</div>
+<div class="col-md-12 spacer"></div>
+
+<div class="footer-bottom" ng-include="'views/footer.html'"></div>

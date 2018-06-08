@@ -1,0 +1,66 @@
+<div ng-include="enrolledClase.layout.header"></div>
+
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li><a href="/misCursos">Mis Cursos</a></li>
+	  	<li>{{catedra.title}}</li>
+	  	<li class="active">{{clase.title}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
+</div>
+
+<div class="container-fluid container-top container-bottom">
+
+	<div class="cat-main-header text-center container-top container-bottom">
+		<div class="col-md-8 text-left">
+			<div>
+				<h2><strong>{{catedra.title}}</strong></h2>
+			</div>
+			<div>
+				<strong>Categor&iacute;a: </strong>
+				{{catedra.category}}
+			</div>
+			<div>
+				<strong>Instructor: </strong>
+				{{catedra.teacher}}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<img ng-src="{{catedra.img}}" class="img-thumbnail cat-main-img">
+		</div>
+	</div>
+
+	<div class="container-fluid container-bottom cat-main-body">
+		<table class="table">
+			<tr>
+				<td class="col-md-4">
+					{{clase.title}}
+				</td>
+			</tr>
+			<tr>
+				<td class="col-md-6">
+					{{clase.description}}
+				</td>
+			</tr>
+		</table>
+		<table class="table table-striped">
+			<tr>
+				<td class="col-md-4">
+					NOTIFICACIONES: 
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>
+<div class="col-md-12 spacer">{{catedra}}</div>
+
+<div class="footer-bottom" ng-include="enrolledClase.layout.footer"></div>

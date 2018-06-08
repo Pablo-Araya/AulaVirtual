@@ -96,8 +96,3 @@ angular.module('AulaVirtualApp')
     }
 
   });
-
-
-// var now = new Date;
-// var utc_timestamp = now.toISOString().substr(0, 19).replace('T', ' ');
-// document.write("UTC timestamp  " + utc_timestamp)

@@ -8,7 +8,7 @@
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('RecoverCtrl', function ($scope, $location) {
+  .controller('RecoverCtrl', function ($scope, $location, $window) {
     this.awesomeThings = [
 		'HTML5 Boilerplate',
 		'AngularJS',
@@ -42,8 +42,8 @@ angular.module('AulaVirtualApp')
         }
     }
 
-    $scope.loginView = function(){
-		$location.path( "/" );
+    $scope.goBack = function(){
+        $window.history.back();
     }
 
 

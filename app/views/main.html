@@ -12,7 +12,7 @@
 					</div>
 
 					<div ng-if="user.success !== undefined" class="alert alert-success" role="alert">
-						Bienvenido: <strong>{{user.person}}</strong>
+						Bienvenido: <strong>{{user.person | capitalize}}</strong>
 					</div>
 
 					<form class="form-horizontal" name="loginForm" id="loginForm" ng-submit="submitForm(loginForm.$invalid)" method="POST" data-toggle="validator" role="form">

@@ -1,22 +1,35 @@
 <div ng-include="register.layout.header"></div>
 
-<div class="container container-top container-bottom" ng-controller="RegisterCtrl as ctrl">
+<div class="container container-top container-bottom">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Registrar Usuario</div>
 
-                <div class="panel-body">
+                <div class="panel-body container-top">
 
                     <div ng-if="register.error !== undefined" class="alert alert-danger" role="alert">
-                        <strong>Error!</strong><div>{{register.error}}</div>
+                        <strong>Error:</strong>
+                        <div>{{register.error}}</div>
+                    </div>
+                    <div ng-if="register.errorEmail !== undefined" class="alert alert-danger" role="alert">
+                        <strong>Error:</strong>
+                        <div>{{register.errorEmail}}</div>
+                    </div>
+                    <div ng-if="register.errorUser !== undefined" class="alert alert-danger" role="alert">
+                        <strong>Error:</strong>
+                        <div>{{register.errorUser}}</div>
+                    </div>
+                    <div ng-if="register.errorPassword !== undefined" class="alert alert-danger" role="alert">
+                        <strong>Error:</strong>
+                        <div>{{register.errorPassword}}</div>
                     </div>
 
                     <div ng-if="register.success !== undefined" class="alert alert-success" role="alert">
-                        Bienvenido: <strong>{{register.person}}</strong>
+                        Felicidades: <strong>Ya est&aacute;s registrado</strong>
                     </div>
                     
-                    <form class="form-horizontal" method="POST">
+                    <form class="form-horizontal" name="registerForm" id="registerForm" ng-submit="submitForm(registerForm.$invalid)" method="POST" data-toggle="validator" role="form">
 
                         <div class="form-group">
                             <label for="nombre" class="col-md-4 control-label">Nombre :</label>
@@ -69,7 +82,7 @@
                                        name="email-confirmation" 
                                        placeholder="Confirme correo electr&oacute;nico" 
                                        required 
-                                       ng-model="register.email-confirmation">
+                                       ng-model="register.emailConfirmation">
                                 <span class="help-block with-errors"></span>
                             </div>
                         </div>
@@ -111,59 +124,65 @@
                                        name="password-confirmation" 
                                        placeholder="Confirme su Password" 
                                        required 
-                                       ng-model="register.password-confirmation">
+                                       ng-model="register.passwordConfirmation">
                                 <span class="help-block with-errors"></span>
                             </div>
                         </div>
 
 						<div class="form-group">
 	                        <label class="control-label col-md-4">G&eacute;nero</label>
-	                        <div class="col-md-6">
-	                            <input type="checkbox" 
-	                                   class="make-switch switch-large"
-	                                   name="gender"                                                                
-	                                   id="gender" 
-	                                   value="m"
-	                                   data-on-text="<i class='fas fa-male fa-lg'></i>" 
-	                                   data-on-color="primary" 
-	                                   data-off-text="<i class='fas fa-female fa-lg'></i>" 
-	                                   data-off-color="danger"
-	                                   checked 
-	                                   bs-switch
-	                                   />
-	                        </div>
+	                        <div class="col-md-3">
+                                <input id="genderMale"
+                                       type="radio" 
+                                       name="gender" 
+                                       ng-model="register.gender"
+                                       required
+                                       value="0">
+                                <label for="genderMale" class="control-label input-format"><i class="fas fa-male fa-2x"></i></label>
+                            </div>
+                            <div class="col-md-3">
+                                <input id="genderFemale"
+                                       type="radio" 
+                                       name="gender" 
+                                       ng-model="register.gender"
+                                       value="1">
+                                <label for="genderFemale" class="control-label input-format"><i class="fas fa-female fa-2x"></i></label>
+                            </div>
+                            <span class="help-block with-errors"></span>
 	                    </div>
 
 	                    <div class="form-group">
-                            <label class="col-md-4 control-label">Seleccione el rol:</label>
-                            <div class="col-md-6 inline-block">
-                                <input id="roleTeacher" 
-                                       type="radio" 
-                                       class="form-control" 
-                                       name="role" 
-                                       value="Instructor"
-                                       required 
-                                       ng-model="register.role"> Instructor
+                            <label class="col-md-4 control-label">Indique Perfil:</label>
+                            <div class="col-md-3">
                                 <input id="roleStudent" 
                                        type="radio" 
-                                       class="form-control" 
                                        name="role" 
-                                       value="Alumno"
+                                       value="3"
                                        required 
-                                       ng-model="register.role"> Alumno
-                                <span class="help-block with-errors"></span>
+                                       ng-model="register.role_id">
+                                <label for="roleStudent" class="control-label input-format">Alumno</label>
                             </div>
+                            <div class="col-md-3">
+                                <input id="roleTeacher" 
+                                       type="radio" 
+                                       name="role" 
+                                       value="2"
+                                       required 
+                                       ng-model="register.role_id"> 
+                                <label for="roleTeacher" class="control-label input-format">Instructor</label>
+                            </div>
+                            <span class="help-block with-errors"></span>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-2 text-right">
+                        <div class="col-md-12 text-right">
+                            <div class="form-group">
                                 <button type="submit"
                                         class="btn btn-primary"
                                         ng-click="registerSend()">
                                     Registrar
                                 </button>
-                                <button class="btn btn-default"
-                                        ng-click="loginView()">
+                                <button class="btn btn-success"
+                                        ng-click="goBack()">
                                     Volver
                                 </button>
                             </div>

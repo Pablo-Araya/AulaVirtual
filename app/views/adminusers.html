@@ -1,0 +1,71 @@
+<div ng-include="adminUsers.layout.header"></div>
+
+<div class="breadcrumb-header breadcrumb-admin">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
+</div>
+
+<div class="container-fluid container-top container-bottom">
+	<div class="row container-fluid">
+		B&uacute;squeda:<br>
+		<input type="text" ng-model="busqueda.nombre" class="form-control" placeholder="Ingrese nombre de usuario">
+		<br>
+		Role:<br>
+		<select ng-model="busqueda.role_id" class="form-control">
+			<option value="">Todos</option>
+			<option value="1">Administradores</option>
+			<option value="2">Instructores</option>
+			<option value="3">Alumnos</option>
+		</select>
+	</div>
+	
+	<div class="col-md-12 spacer"></div>
+
+	<div class="container container-top" ng-show="alerta.show">
+		<div class="alert alert-info" role="alert">
+	        <span id="msg-alertBox"></span>
+	    </div>
+	</div>
+	<div class="col-md-12 spacer" ng-show="alerta.show"></div>
+	
+	<table class="table table-striped">
+		<tr>
+			<th><a class="puntero" ng-click="columna='id'; reverse = !reverse;">ID</a></th>
+			<th><a class="puntero" ng-click="columna='nombre'; reverse = !reverse;">Nombre</a></th>
+			<th><a class="puntero" ng-click="columna='lastName'; reverse = !reverse;">Apellido</a></th>
+			<th><a class="puntero" ng-click="columna='gender'; reverse = !reverse;">G&eacute;nero</a></th>
+			<th><a class="puntero" ng-click="columna='email'; reverse = !reverse;">E-mail</a></th>
+			<th><a class="puntero" ng-click="columna='role_id'; reverse = !reverse;">Role</a></th>
+			<th><a class="puntero" ng-click="columna='username'; reverse = !reverse;">Nombre Usuario</a></th>
+			<th><a class="puntero" ng-click="columna='created_at'; reverse = !reverse;">Fecha de Creaci&oacute;n</a></th>
+			<th>Acciones</th>
+		</tr>
+		<tr ng-repeat="usuario in users | filter:busqueda | orderBy:columna:reverse">
+			<td>{{usuario.id | number:0}}</td>
+			<td>{{usuario.nombre | capitalize}}</td>
+			<td>{{usuario.lastName | capitalize}}</td>
+			<td><i class="fas fa-{{getGenderIcon(usuario.gender)}}"></i> {{getGender(usuario.gender)}}</td>
+			<td>{{usuario.email | lowercase}}</td>
+			<td>{{getRole(usuario.role_id)}}</td>
+			<td>{{usuario.username | lowercase}}</td>
+			<td>{{usuario.created_at | date: "dd/MM/yyyy - HH:mm a"}}</td>
+			<td>
+				<button type="button" class="btn btn-danger btn-xs" ng-click="userDelete(usuario)">
+					<i class="fas fa-trash-alt"></i>
+				</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="footer-bottom" ng-include="adminUsers.layout.footer"></div>

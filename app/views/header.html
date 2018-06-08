@@ -47,28 +47,40 @@
 
         <ul class="nav navbar-nav navbar-right">
           
-          <li ng-show="{{authToken.show}}" ng-class="{'nav-active': '/cursos' == activeURL}" ng-click="linkMenu('/cursos')">
+          <li ng-if="user.role_id == 1" ng-class="{'nav-active': '/admin/users' == activeURL }" ng-click="linkMenu('/admin/users')">
+            <a href="#" class="nav-link">Usuarios</a>
+          </li>
+
+          <li ng-if="user.role_id == 1" ng-class="{'nav-active': '/admin/categories' == activeURL }" ng-click="linkMenu('/admin/categories')">
+            <a href="#" class="nav-link">Categor&iacute;as</a>
+          </li>
+
+          <li ng-if="user.role_id == 2" ng-class="{'nav-active': '/misCatedras' == activeURL || '/misCatedras/crearCatedra' == activeURL }" ng-click="linkMenu('/misCatedras')">
+            <a href="#" class="nav-link">Mis Catedras</a>
+          </li>
+
+          <li ng-if="user.role_id == 3" ng-class="{'nav-active': '/misCursos' == activeURL}" ng-click="linkMenu('/misCursos')">
             <a href="#" class="nav-link">Mis Cursos</a>
           </li>
           
-          <li ng-show="{{authToken.show}}" ng-class="{'nav-active': '/logout' == activeURL}" ng-click="linkMenu('/logout')">
+          <li ng-show="authToken.show" ng-class="{'nav-active': '/logout' == activeURL}" ng-click="linkMenu('/logout')">
             <a href="#" class="nav-link">
               <span class="glyphicon glyphicon-log-out"></span> LogOut
             </a>
           </li>
 
-          <li ng-show="{{!authToken.show}}" ng-class="{'nav-active': '/register' == activeURL}" ng-click="linkMenu('/register')" class="nav-link">
+          <li ng-show="!authToken.show" ng-class="{'nav-active': '/register' == activeURL}" ng-click="linkMenu('/register')" class="nav-link">
             <a href="#">
               <span class="glyphicon glyphicon-user"></span> Registrarse
             </a>
           </li>
 
-          <li ng-show="{{!authToken.show}}" ng-class="{'nav-active': '/' == activeURL}" ng-click="linkMenu('/')" class="nav-link">
+          <li ng-show="!authToken.show" ng-class="{'nav-active': '/' == activeURL}" ng-click="linkMenu('/')" class="nav-link">
             <a href="#">
               <span class="glyphicon glyphicon-log-in"></span> Login
             </a>
           </li>
-
+          <!-- {{verifyToken()}} -->
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>

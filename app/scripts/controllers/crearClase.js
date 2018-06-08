@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name AulaVirtualApp.controller:CatedraCtrl
+ * @name AulaVirtualApp.controller:CrearclaseCtrl
  * @description
- * # CatedraCtrl
+ * # CrearclaseCtrl
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('CatedraCtrl', function () {
+  .controller('CrearClaseCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

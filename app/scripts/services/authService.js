@@ -40,8 +40,7 @@ angular.module('AulaVirtualApp')
             });
         },
 
-        destroyToken: function(){
-            alert("destruimos el token");
+        destroyToken: function(user){
             return $http({
                 method: 'DELETE',
                 url: 'http://localhost:3000/api/v1/users/'+user+'/auth',

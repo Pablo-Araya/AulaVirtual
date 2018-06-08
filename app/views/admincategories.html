@@ -1,0 +1,154 @@
+<div ng-include="adminCategories.layout.header"></div>
+
+<div class="breadcrumb-header breadcrumb-admin">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li class="active">{{user.nombre | capitalize}} {{user.lastName | capitalize}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
+</div>
+
+<div class="container-fluid container-top container-bottom">
+	<div class="row container-fluid">
+		B&uacute;squeda:<br>
+		<input type="text" ng-model="busqueda" class="form-control" placeholder="Ingrese filtro de búsqueda">
+		<br>
+	</div>
+	
+	<div class="col-md-12 margin-top-5"></div>
+
+	<div class="container container-top" ng-show="alerta.show">
+		<div class="alert alert-info" role="alert">
+	        <span id="msg-alertBox"></span>
+	    </div>
+	</div>
+	<div class="col-md-12 margin-top-5" ng-show="alerta.show"></div>
+	
+	<div class="col-md-9" ng-show="alerta.edit">
+		<section class="panel card">
+			<div class="panel-body">
+				
+				<div class="col-md-12 margin-top-15">
+					<strong>&Iacute;cono:</strong> 
+				</div>
+				<div class="col-md-9">	
+					<input type="text" class="form-control" ng-model="categorias.edit.icon">
+				</div>
+				<div class="col-md-3">
+					<i class="{{categorias.edit.icon}} fa-2x"></i>
+					<a class="text-right" href="https://fontawesome.com/icons?d=gallery" target="_blank">
+						Ver Galer&iacute;a
+					</a>
+				</div>
+
+				<div class="col-md-12 margin-top-15">	
+					<strong>T&iacute;tulo:</strong>
+				</div>
+				<div class="col-md-9">
+					<input type="text" class="form-control" ng-model="categorias.edit.title">
+				</div>
+
+				<div class="col-md-12 margin-top-15">	
+					<strong>Descripci&oacute;n:</strong>
+				</div>
+				<div class="col-md-9">
+					<input type="text" class="form-control" ng-model="categorias.edit.description">
+				</div>
+				
+				<span class="text-right col-md-12">
+					<button type="button"
+							class="btn btn-primary btn-md"
+							ng-click="categoryUpdate(categorias.edit)">
+						<i class="fas fa-sync-alt"></i> Actualizar
+					</button>
+				</span>
+			</div>
+		</section>
+	</div>
+	<div class="col-md-12 margin-top-10" ng-show="alerta.edit"></div>
+
+	<div class="col-md-9" ng-show="alerta.new">
+		<section class="panel card">
+			<div class="panel-body">
+				
+				<div class="col-md-12 margin-top-15">
+					<strong>&Iacute;cono:</strong> 
+				</div>
+				<div class="col-md-9">	
+					<input type="text" class="form-control" ng-model="categorias.new.icon">
+				</div>
+				<div class="col-md-3">
+					<i class="{{categorias.new.icon}} fa-2x"></i>
+					<a class="text-right" href="https://fontawesome.com/icons?d=gallery" target="_blank">
+						Ver Galer&iacute;a
+					</a>
+				</div>
+
+				<div class="col-md-12 margin-top-15">	
+					<strong>T&iacute;tulo:</strong>
+				</div>
+				<div class="col-md-9">
+					<input type="text" class="form-control" ng-model="categorias.new.title">
+				</div>
+
+				<div class="col-md-12 margin-top-15">	
+					<strong>Descripci&oacute;n:</strong>
+				</div>
+				<div class="col-md-9">
+					<input type="text" class="form-control" ng-model="categorias.new.description">
+				</div>
+				
+				<span class="text-right col-md-12">
+					<button type="button"
+							class="btn btn-primary btn-md"
+							ng-click="categoryNew(categorias.new)">
+						<i class="far fa-save"></i> Guardar
+					</button>
+				</span>
+
+			</div>
+		</section>
+	</div>
+	<div class="col-md-12 margin-top-10" ng-show="alerta.new"></div>
+
+	<div class="container-fluid text-center col-md-12" ng-show="!alerta.new">
+		<button type="button"
+				class="btn btn-success btn-lg"
+				ng-click="categoryNewForm()">
+			<i class="fas fa-plus-circle"></i> Crear Categor&iacute;a
+		</button>
+	</div>
+	<div class="col-md-12 margin-top-10"></div>
+
+	<table class="table table-striped">
+		<tr>
+			<th><a class="puntero" ng-click="columna='id'; reverse = !reverse;">ID</a></th>
+			<th><a class="puntero" ng-click="columna='icon'; reverse = !reverse;">&Iacute;cono</a></th>
+			<th><a class="puntero" ng-click="columna='title'; reverse = !reverse;">T&iacute;tulo</a></th>
+			<th><a class="puntero" ng-click="columna='description'; reverse = !reverse;">Descripci&oacute;n</a></th>
+			<th><a class="puntero" ng-click="columna='created_at'; reverse = !reverse;">Fecha de Creaci&oacute;n</a></th>
+			<th>Acciones</th>
+		</tr>
+		<tr ng-repeat="categoria in categorias | filter:busqueda | orderBy:columna:reverse">
+			<td>{{categoria.id | number:0}}</td>
+			<td><i class="{{categoria.icon}} fa-2x"></i></td>
+			<td>{{categoria.title | capitalize}}</td>
+			<td>{{categoria.description | capitalize}}</td>
+			<td>{{categoria.created_at | date: "dd/MM/yyyy - HH:mm a"}}</td>
+			<td>
+				<button type="button" class="btn btn-primary btn-xs" ng-click="categoryEdit(categoria)">
+					<i class="fas fa-edit"></i>
+				</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="footer-bottom" ng-include="adminCategories.layout.footer"></div>

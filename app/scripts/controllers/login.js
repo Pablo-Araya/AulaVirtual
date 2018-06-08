@@ -53,7 +53,7 @@ angular.module('AulaVirtualApp')
                             $location.path('/misCursos');
                         }
                         if($scope.user.role_id == 1){
-                            $("#alertBox").hide();
+                            $location.path('/admin/users');
                         }
                     },
                     function() { // optional
@@ -62,6 +62,6 @@ angular.module('AulaVirtualApp')
                     }
                 );
                 console.log($scope.login);
-        },5000);
+        },3000);
 
   });

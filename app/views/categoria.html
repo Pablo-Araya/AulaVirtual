@@ -14,15 +14,71 @@
 	</div>
 </div>
 
-<div ng-show="{{!catedras.empty}}" class="container margin-top-45 alert alert-warning font-info">
+<div ng-if="enrollData.status == 'ERROR'">
+	<div class="container margin-top-45 alert alert-danger font-info">
+		<strong>Oops!</strong>!<br>
+		{{enrollData.title}}<br>
+		<i>{{enrollData.msg}}</i>
+	</div>
+</div>
+
+<div ng-if="enrollData.status == 'SUCCESS'">
+	<div class="container margin-top-45 alert alert-success font-info">
+		<strong>Felicidades!</strong>!<br>
+		<i>{{enrollData.msg}}<br>{{enrollData.title}}</i>
+	</div>
+</div>
+
+<div ng-if="!authToken.token_security">
+	<div class="container margin-top-45 alert alert-warning font-info">
+		<strong>Debes iniciar sesión para inscribirte en alg&uacute;n curso</strong>!<br>
+		<i>Puedes hacerlo presionando el bot&oacute;n de abajo</i>
+	</div>
+	<div class="container-fluid text-center">
+		<button type="button"
+				class="btn btn-success btn-lg"
+				ng-click="loginView()">
+			<i class="glyphicon glyphicon-log-in"></i> LogIn
+		</button>
+	</div> 
+</div>
+
+<div ng-show="!catedras.empty" class="container margin-top-45 alert alert-warning font-info">
 	<strong>Lo sentimos</strong><br>
 	A&uacute;n no existen Cursos en esta categor&iacute;a
 </div>
 
-<div ng-show="{{catedras.empty}}" class="container container-top container-bottom">
-	<div class="text-center">Estos son tus categoria lolito !... {{category}} </div>	
+<div ng-show="catedras.empty" class="row-card container-top container-bottom">
+	<div class="col-md-12">
+		<div class="col-md-2 card-container-bottom card-container-size" ng-repeat="catedra in catedras">
+			<div class="card">
+				<img ng-src="{{catedra.img}}" alt="Avatar" class="card-avatar">
+				<div class="card-container">
+					<div class="card-title">{{catedra.title}}</div> 
+					<div class="card-instructor">{{callMyTeacher(catedra.id)}}</div>
+					<div class="card-stats">
+						<span class="card-stats-stars" id="rate{{catedra.id}}">
+							<fieldset class="rating">
+								{{callStarSet(catedra.id)}}
+							</fieldset>
+						</span>
+						<span class="card-stats-nota">{{callMyAvg(catedra.id) | number:1}}</span>
+						<div class="card-stats-nota-count">
+							({{callCountVotes(catedra.id) | number:0}} voto{{callCountVotesText(catedra.id)}})
+						</div>
+					</div>
+				</div>
+				<div class="text-center margin-bottom-10">
+					<button type="button" class="btn btn-warning btn-xs" ng-if="authToken.token_security" ng-click="enroll(catedra.id, user.id, user.perfil_id, catedra.title)">
+						<span id="enrollBtn{{catedra.id}}">INSCRIBIRSE</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{getInstructor_getAvg()}}
 </div>
-
-
+<div class="col-md-12 spacer">
+</div>
 
 <div class="footer-bottom" ng-include="categoria.layout.footer"></div>
