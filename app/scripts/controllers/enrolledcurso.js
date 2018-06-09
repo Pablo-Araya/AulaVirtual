@@ -24,6 +24,7 @@ angular.module('AulaVirtualApp')
 
 	$scope.catedraID = {};
 	$scope.catedra = {};
+	$scope.alerta = {};
 	
 	// obtengo ID de la URI
     var identifier = vm.url.split('/');
@@ -41,7 +42,6 @@ angular.module('AulaVirtualApp')
     		getClases(res.id);
     	},
     	function(){
-    		alert('error');
     		$location.path('/error');
     	}
     );
@@ -54,7 +54,6 @@ angular.module('AulaVirtualApp')
 	    		$scope.catedra.category = res.title;
 	    	},
 	    	function(){
-	    		alert('error1');
     			$location.path('/error');
 	    	}
 	    )
@@ -68,7 +67,6 @@ angular.module('AulaVirtualApp')
 	    		$scope.catedra.teacher = res;
 	    	},
 	    	function(){
-	    		alert('error2');
 				$location.path('/error');
 	    	}
 	    )
@@ -82,8 +80,8 @@ angular.module('AulaVirtualApp')
 	            $scope.clases = res.data;
 	        },
 	        function(){
-	    		alert('error3');
-	            // $location.path('/error');
+	    		$scope.alerta.show = true;
+	    		$scope.alerta.message = "Lo sentimos, el instructor aún no ha creado ninguna clase para esta cátedra";
 	        }
 	    );
 	}

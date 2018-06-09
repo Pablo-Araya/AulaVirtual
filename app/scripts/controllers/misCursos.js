@@ -30,7 +30,7 @@ angular.module('AulaVirtualApp')
     var flags = [];
     var cursosID = [];
     var total = 0;
-
+    
     userService.getMisCursos($scope.user.id)
         .then(
             function(response) {
@@ -56,7 +56,10 @@ angular.module('AulaVirtualApp')
                             bolB: false,
                             bolC: false,
                             bolD: false,
+                            bolE: false,
+                            show: false,
                         });
+
                     }
                     total = i+1;
                 }
@@ -101,171 +104,209 @@ angular.module('AulaVirtualApp')
                 if($scope.flags[i]["bolD"] == false){
                     countStatistics(i);
                 }
+                $scope.flags[i]["show"] = true;   
             }
         }
     }
 
     function getCatedras(i) {
-        catedraService.getCatedra(cursosID[i]['cur']).then(
-            function(response) {
-                var res = response.data.data;
-                if (!myCursos.find(x => x.id == res.id)){
-                    myCursos.push({
-                        id         : res.id,
-                        category_id: res.category_id,
-                        teacher_id : res.teacher_id,
-                        title      : res.title,
-                        description: res.description,
-                        img        : res.img
-                    });
+        if(!userService.getCatedra){
+            catedraService.getCatedra(cursosID[i]['cur']).then(
+                function(response) {
+                    var res = response.data.data;
+                    if (!myCursos.find(x => x.id == res.id)){
+                        myCursos.push({
+                            id         : res.id,
+                            category_id: res.category_id,
+                            teacher_id : res.teacher_id,
+                            title      : res.title,
+                            description: res.description,
+                            img        : res.img
+                        });
+                    }
+                },
+                function(){
+                    alert("error");
+                    $scope.viewsAny.show = false
                 }
-            },
-            function(){
-                alert("error");
-                $scope.viewsAny.show = false
+            )
+            $scope.misCursos = myCursos;
+            $scope.flags[i]["bolA"] = true;
+
+            if(++i === $scope.allCursos.count){
+                userService.getCatedra = $scope.misCursos;
             }
-        )
-        $scope.misCursos = myCursos;
-        $scope.flags[i]["bolA"] = true;
+
+        }else{
+            $scope.misCursos = userService.getCatedra;
+            $scope.flags[i]["bolA"] = true;
+        }
     }
 
     function getInstructorName(i) {
-        catedraService.getInstructorName(cursosID[i]['cgy'], cursosID[i]['cur'])
-            .then(
-                function(response) {
-                    var res = response.data.data;
-                    if (!instructoresNames.find(x => x.id == $scope.misCursos[i]["id"])){
-                        instructoresNames.push({
-                            id : $scope.misCursos[i]["id"],
-                            ins: res
-                        });
+        if(!userService.getInstructorName){
+            catedraService.getInstructorName(cursosID[i]['cgy'], cursosID[i]['cur'])
+                .then(
+                    function(response) {
+                        var res = response.data.data;
+                        if (!instructoresNames.find(x => x.id == $scope.misCursos[i]["id"])){
+                            instructoresNames.push({
+                                id : $scope.misCursos[i]["id"],
+                                ins: res
+                            });
+                        }
+                    },
+                    function(){
+                        if (!instructoresNames.find(x => x.id == $scope.misCursos[i]["id"])){
+                            instructoresNames.push({
+                                id : $scope.misCursos[i]["id"], 
+                                ins: 'Error al cargar!'
+                            });
+                        }
                     }
-                },
-                function(){
-                    if (!instructoresNames.find(x => x.id == $scope.misCursos[i]["id"])){
-                        instructoresNames.push({
-                            id : $scope.misCursos[i]["id"], 
-                            ins: 'Error al cargar!'
-                        });
-                    }
-                }
-            );
-        $scope.instructores = instructoresNames;
-        $scope.flags[i]["bolB"] = true;
+                );
+            $scope.instructores = instructoresNames;
+            $scope.flags[i]["bolB"] = true;
+            $scope.$apply();
+
+            if(++i === $scope.allCursos.count){
+                userService.getInstructorName = $scope.instructores;
+            }
+
+        }else{
+            $scope.instructores = userService.getInstructorName;
+            $scope.flags[i]["bolB"] = true;
+        }
     }
 
     function getStatistics(i) {
-        catedraService.getStatsByCatedra(cursosID[i]['cgy'], cursosID[i]['cur'])
-            .then(
-                function(response) {
-                    var res = response.data.data;
-                    if (!estadisticasAvg.find(x => x.id == $scope.misCursos[i]["id"])){
-                        estadisticasAvg.push({
-                            id : $scope.misCursos[i]["id"],
-                            avg: res
-                        });
+        if(!userService.getStatistics){
+            catedraService.getStatsByCatedra(cursosID[i]['cgy'], cursosID[i]['cur'])
+                .then(
+                    function(response) {
+                        var res = response.data.data;
+                        if (!estadisticasAvg.find(x => x.id == $scope.misCursos[i]["id"])){
+                            estadisticasAvg.push({
+                                id : $scope.misCursos[i]["id"],
+                                avg: res
+                            });
+                        }
+                    },
+                    function(){
+                        if (!estadisticasAvg.find(x => x.id == $scope.misCursos[i]["id"])){
+                            estadisticasAvg.push({
+                                id : $scope.misCursos[i]["id"], 
+                                avg: 0
+                            });
+                        }
                     }
-                },
-                function(){
-                    if (!estadisticasAvg.find(x => x.id == $scope.misCursos[i]["id"])){
-                        estadisticasAvg.push({
-                            id : $scope.misCursos[i]["id"], 
-                            avg: 0
-                        });
-                    }
-                }
-            );
-        $scope.estadisticas = estadisticasAvg;
-        $scope.flags[i]["bolC"] = true;
+                );
+            $scope.estadisticas = estadisticasAvg;
+            $scope.flags[i]["bolC"] = true;
+            $scope.$apply();
+
+            if(++i === $scope.allCursos.count){
+                userService.getStatistics = $scope.estadisticas;
+            }
+
+        }else{
+            $scope.estadisticas = userService.getStatistics;
+            $scope.flags[i]["bolC"] = true;
+        }
     }
 
     function countStatistics(i) {
-        catedraService.countStatsByCatedra(cursosID[i]['cgy'], cursosID[i]['cur'])
-            .then(
-                function(response) {
-                    var res = response.data.data;
-                    if (!estadisticasCount.find(x => x.id == $scope.misCursos[i]["id"])){
-                        estadisticasCount.push({
-                            id : $scope.misCursos[i]["id"],
-                            count: res
-                        });
+        if(!userService.countStatistics){
+            catedraService.countStatsByCatedra(cursosID[i]['cgy'], cursosID[i]['cur'])
+                .then(
+                    function(response) {
+                        var res = response.data.data;
+                        var txt = (res == '1') ? '' : 's';
+                        if (!estadisticasCount.find(x => x.id == $scope.misCursos[i]["id"])){
+                            estadisticasCount.push({
+                                id : $scope.misCursos[i]["id"],
+                                count: res,
+                                text: txt
+                            });
+                        }
+                    },
+                    function(){
+                        if (!estadisticasCount.find(x => x.id == $scope.misCursos[i]["id"])){
+                            estadisticasCount.push({
+                                id : $scope.misCursos[i]["id"], 
+                                count: 0,
+                                txt: 's'
+                            });
+                        }
                     }
-                },
-                function(){
-                    if (!estadisticasCount.find(x => x.id == $scope.misCursos[i]["id"])){
-                        estadisticasCount.push({
-                            id : $scope.misCursos[i]["id"], 
-                            count: 0
-                        });
-                    }
-                }
-            );
-        $scope.estadisticasCount = estadisticasCount;
-        $scope.flags[i]["bolD"] = true;
-    }
+                );
+            $scope.estadisticasCount = estadisticasCount;
+            $scope.flags[i]["bolD"] = true;
+            $scope.$apply();
 
-    //Mostramos la data en pantalla
-    $scope.callMyTeacher = function(element) {
-        for (var i=0; i<$scope.allCursos.count; i++) {
-            if(element == $scope.instructores[i].id) {
-                return $scope.instructores[i].ins;
+            if(++i === $scope.allCursos.count){
+                i--;
+                userService.countStatistics = $scope.estadisticasCount;
             }
+
+        }else{
+            $scope.estadisticasCount = userService.countStatistics;
+            $scope.flags[i]["bolD"] = true;
         }
     }
 
-    $scope.callMyAvg = function(element) {
-        for (var i=0; i<$scope.allCursos.count; i++) {
-            if(element == $scope.estadisticas[i].id) {
-                return $scope.estadisticas[i].avg;
-            }
-        }
+    // Mostramos la data en pantalla
+    $scope.getTeacher = function(id) {
+        var teacher = $scope.instructores.find(x => x.id === id);
+        return teacher.ins;
     }
 
-    $scope.callStarSet = function(element) {
+    $scope.getAvg = function(id) {
+        var average = $scope.estadisticas.find(x => x.id === id);
+        return average.avg;
+    }
+
+    $scope.getVotes = function(id) {
+        var vote = $scope.estadisticasCount.find(x => x.id === id);
+        return vote.count;
+    }
+
+    $scope.getVotesTxt = function(id) {
+        var voteTxt = $scope.estadisticasCount.find(x => x.id === id);
+        return voteTxt.txt;
+    }
+
+    $scope.starSet = function(id) {
         var stars = "";
+        var average = $scope.estadisticas.find(x => x.id === id);
 
-        for (var i=0; i<$scope.allCursos.count; i++) {
-            if(element == $scope.estadisticas[i].id && $scope.estadisticas[i].avg > 0) {
-                var avg = $scope.estadisticas[i].avg;
-                avg = avg.split('.');
+        if(average.avg > 0) {
+            var prom = average.avg;
+            var avg = prom.split('.');
 
-                var int = avg[0];
-                var dec = avg[1];
-                var end = parseInt(5-Math.ceil($scope.estadisticas[i].avg));
+            var int = avg[0];
+            var dec = avg[1];
+            var end = parseInt(5-Math.ceil(average.avg));
 
-                for(var j=0; j<int; j++) {
-                    stars += "<span class=\"star full\"></span>";
-                }
-                stars += (dec == 0) ? "" : "<span class=\"star half\"></span>";
-                for(var c=0; c<end; c++) {
-                    stars += "<span class=\"star\"></span>";
-                }
-                
-            }else if(element == $scope.estadisticas[i].id && $scope.estadisticas[i].avg == 0) {
-                for(var n=0; n<5; n++) {
-                    stars += "<span class=\"star\"></span>";
-                }
+            for(var j=0; j<int; j++) {
+                stars += "<span class=\"star full\"></span>";
             }
+            
+            stars += (dec == 0) ? "" : "<span class=\"star half\"></span>";
+
+            for(var c=0; c<end; c++) {
+                stars += "<span class=\"star\"></span>";
+            }
+
+        }else if(average.avg == 0) {
+            
+            for(var n=0; n<5; n++) {
+                stars += "<span class=\"star\"></span>";
+            }
+        
         }
         
-        $("#rate"+element).html(stars);
-    }
-
-    $scope.callCountVotes = function(element) {
-        for (var i=0; i<$scope.allCursos.count; i++) {
-            if(element == $scope.estadisticasCount[i].id) {
-                return $scope.estadisticasCount[i].count;
-            }
-        }
-    }
-    
-    $scope.callCountVotesText = function(element) {
-        for (var i=0; i<$scope.allCursos.count; i++) {
-            if(element == $scope.estadisticasCount[i].id) {
-                var text = ($scope.estadisticasCount[i].count !== 1) ? 's' : '';
-                return text;
-            }
-        }
+        $("#rate"+id).html(stars);
     }
 
   });

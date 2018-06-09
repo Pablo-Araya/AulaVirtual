@@ -51,7 +51,7 @@
 <div ng-show="catedras.empty" class="row-card container-top container-bottom">
 	<div class="col-md-12">
 		<div class="col-md-2 card-container-bottom card-container-size" ng-repeat="catedra in catedras">
-			<div class="card">
+			<div class="card" ng-cloak>
 				<img ng-src="{{catedra.img}}" alt="Avatar" class="card-avatar">
 				<div class="card-container">
 					<div class="card-title">{{catedra.title}}</div> 

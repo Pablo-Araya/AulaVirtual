@@ -42,8 +42,7 @@ angular.module('AulaVirtualApp')
     		getClase(res.id, $scope.claseID);
     	},
     	function(){
-    		alert('error');
-    		// $location.path('/error');
+    		$location.path('/error');
     	}
     );
 
@@ -55,7 +54,6 @@ angular.module('AulaVirtualApp')
 	    		$scope.catedra.category = res.title;
 	    	},
 	    	function(){
-	    		alert('error1');
     			$location.path('/error');
 	    	}
 	    )
@@ -69,7 +67,6 @@ angular.module('AulaVirtualApp')
 	    		$scope.catedra.teacher = res;
 	    	},
 	    	function(){
-	    		alert('error2');
 				$location.path('/error');
 	    	}
 	    )
@@ -78,13 +75,11 @@ angular.module('AulaVirtualApp')
 	function getClase(catedra, clase) {
 		catedraService.getClase(catedra, clase).then(
 	        function(response) {
-	            // obtenemos todos los usuarios registrados
 	            var res = response.data.data;
 	            $scope.clase = res;
 	        },
 	        function(){
-	    		alert('error3');
-	            // $location.path('/error');
+	            $location.path('/error');
 	        }
 	    );
 	}

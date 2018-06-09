@@ -20,7 +20,7 @@
 <div class="container-fluid container-top container-bottom">
 
 	<div class="cat-main-header text-center container-top container-bottom">
-		<div class="col-md-8 text-left">
+		<div class="col-md-8 text-left margin-top-minus">
 			<div>
 				<h2><strong>{{catedra.title}}</strong></h2>
 			</div>
@@ -39,28 +39,31 @@
 	</div>
 
 	<div class="container-fluid container-bottom cat-main-body">
-		<table class="table">
+		<h3>{{clase.title}}</h3>
+		<p>{{clase.description}}</p>
+		<h4 class="container-top">Recursos de la Clase:</h4>
+		<table class="table" ng-repeat="notificacion in notificaciones" ng-cloak>
 			<tr>
-				<td class="col-md-4">
-					{{clase.title}}
+				<td class="col-md-12 text-left">
+					<strong>{{notificacion.title}}</strong>
 				</td>
 			</tr>
 			<tr>
-				<td class="col-md-6">
-					{{clase.description}}
+				<td class="col-md-12 text-left">
+					<i>{{notificacion.description}}</i>
 				</td>
 			</tr>
-		</table>
-		<table class="table table-striped">
 			<tr>
-				<td class="col-md-4">
-					NOTIFICACIONES: 
+				<td colspan="2" class="col-md-12 text-center">
+					<button type="button" class="btn btn-success cat-button-go" ng-click="goClass(clase.id)">
+						<i class="fas fa-arrow-circle-right"></i>
+					</button>
 				</td>
 			</tr>
 		</table>
 	</div>
 
 </div>
-<div class="col-md-12 spacer">{{catedra}}</div>
+<div class="col-md-12 spacer"></div>
 
 <div class="footer-bottom" ng-include="enrolledClase.layout.footer"></div>

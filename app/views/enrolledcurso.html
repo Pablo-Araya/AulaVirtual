@@ -19,7 +19,7 @@
 <div class="container-fluid container-top container-bottom">
 
 	<div class="cat-main-header text-center container-top container-bottom">
-		<div class="col-md-8 text-left">
+		<div class="col-md-8 text-left margin-top-minus">
 			<div>
 				<h2><strong>{{catedra.title}}</strong></h2>
 			</div>
@@ -38,8 +38,16 @@
 	</div>
 
 	<div class="container-fluid container-bottom cat-main-body">
+
+		<div ng-show="alerta.show" class="container container-top container-bottom">
+			<div class="alert alert-danger">
+				<strong>ERROR:</strong><br>
+				{{alerta.message}}
+			</div>	
+		</div>
+
 		<table class="table table-striped">
-			<tr ng-repeat="clase in clases">
+			<tr ng-repeat="clase in clases" ng-cloak>
 				<td class="col-md-4">
 					{{clase.title}}
 				</td>
@@ -56,6 +64,6 @@
 	</div>
 
 </div>
-<div class="col-md-12 spacer">{{catedra}}</div>
+<div class="col-md-12 spacer"></div>
 
 <div class="footer-bottom" ng-include="enrolledCurso.layout.footer"></div>

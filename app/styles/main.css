@@ -72,6 +72,10 @@ body {
   margin-top: 5px;
 }
 
+.margin-top-minus {
+  margin-top: -50px;
+}
+
 .margin-top-10 {
   margin-top: 10px;
 }

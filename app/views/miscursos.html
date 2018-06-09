@@ -24,23 +24,30 @@
 </div>
 
 <div ng-show="viewsAny.show" class="container-fluid container-top container-bottom">
+
+	<div ng-show="!flags[enrolledCursos.length - 1].show" class="container container-top container-bottom" id="alertBox">
+		<div class="alert alert-info text-center">
+			<i class="fas fa-sync fa-spin fa-2x"></i><br>
+			<strong>Por favor, espere un momento</strong><br>
+			estamos cargando sus cátedras inscritas...
+		</div>
+	</div>
+
 	<div class="row-card container-top container-bottom">
 		<div class="col-md-12">
 			<div class="col-md-2 card-container-bottom card-container-size" ng-repeat="curso in misCursos">
-				<div class="card" ng-click="viewCurso(curso.id)">
+				<div class="card" ng-click="viewCurso(curso.id)" ng-cloak ng-show="flags[enrolledCursos.length - 1].show">
 					<img ng-src="{{curso.img}}" alt="Avatar" class="card-avatar">
 					<div class="card-container">
 						<div class="card-title">{{curso.title}}</div> 
-						<div class="card-instructor">{{callMyTeacher(curso.id)}}</div>
+						<div class="card-instructor"><span>{{getTeacher(curso.id)}}</span></div>
 						<div class="card-stats">
 							<span class="card-stats-stars" id="rate{{curso.id}}">
-								<fieldset class="rating">
-									{{callStarSet(curso.id)}}
-								</fieldset>
+								{{starSet(curso.id)}}
 							</span>
-							<span class="card-stats-nota">{{callMyAvg(curso.id) | number:1}}</span>
+							<span class="card-stats-nota">{{getAvg(curso.id) | number:1}}</span>
 							<div class="card-stats-nota-count">
-								({{callCountVotes(curso.id) | number:0}} voto{{callCountVotesText(curso.id)}})
+								({{getVotes(curso.id) | number:0}} voto{{getVotesTxt(curso.id)}})
 							</div>
 						</div>
 					</div>
@@ -48,7 +55,8 @@
 			</div>
 		</div>
 		{{getInstructor_getAvg()}}
-	</div>	
+	</div>
+	
 </div>
 <div class="col-md-12 spacer"></div>
 
