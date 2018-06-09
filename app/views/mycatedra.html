@@ -1,1 +1,89 @@
-<p>This is the myCatedra view.</p>
+<div ng-include="myCatedra.layout.header"></div>
+
+<div class="breadcrumb-header">
+	<ol class="breadcrumb">
+		<li><a href="/"><i class="fas fa-home"></i></a></li>
+	  	<li><a href="#">Perfil: {{user.role}}</a></li>
+	  	<li><a href="/misCursos">Mis C&aacute;tedras</a></li>
+	  	<li class="active">{{catedra.title}}</li>
+	</ol>
+	<div class="breadcrumb-title container-fluid">
+		Bienvenid<span ng-show="user.gender">a</span><span ng-show="!user.gender">o</span>
+		{{user.nombre | capitalizeEach}} {{user.lastName | capitalizeEach}}
+	</div>
+	<div class="breadcrumb-body container-fluid">
+		{{user.email | lowercase}}
+	</div>
+</div>
+
+<div class="container-fluid container-top container-bottom">
+
+	<div class="cat-main-header text-center container-top container-bottom">
+		<div class="col-md-8 text-left margin-top-minus">
+			<div>
+				<h2><strong>{{catedra.title}}</strong></h2>
+			</div>
+			<div>
+				<strong>Categor&iacute;a: </strong>
+				{{catedra.category}}
+			</div>
+			<div>
+				<strong>Instructor: </strong>
+				{{catedra.teacher}}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<img ng-src="{{catedra.img}}" class="img-thumbnail cat-main-img">
+		</div>
+	</div>
+
+	<div class="container-fluid container-bottom cat-main-body">
+
+		<div class="container container-top">
+			<div class="alert alert-warning" ng-show="!clases.show">
+				<strong>ERROR:</strong><br>
+				{{clases.message}}<br>
+				<i>Puedes hacerlo presionando el bot&oacute;n de abajo</i>
+			</div>	
+			<div class="container-fluid text-center">
+				<button type="button"
+						class="btn btn-success btn-lg"
+						ng-click="newClass()">
+					<i class="fas fa-plus-circle"></i> Crear Clase
+				</button>
+			</div> 
+		</div>
+
+		<div ng-show="new.show" class="margin-top-15">
+			nueva clase 
+		</div>
+
+		<div ng-show="edit.show" class="margin-top-15">
+			editar clase 
+		</div>
+
+		<table class="table table-striped margin-top-15" ng-show="clases.show">
+			<tr ng-repeat="clase in clases" ng-cloak>
+				<td class="col-md-1"><a href ng-click="goClass(clase.id)">{{$index+1}}</a></td>
+				<td class="col-md-4">
+					{{clase.title}}
+				</td>
+				<td class="col-md-5">
+					{{clase.description}}
+				</td>
+				<td class="col-md-2 text-right">
+					<button type="button" class="btn btn-info btn-xs" ng-click="editClass(clase.id)">
+						<i class="far fa-edit"></i>
+					</button>
+					<button type="button" class="btn btn-danger btn-xs" ng-confirm-click="¿ Realmente desea eliminar esta clase $index ?" confirmed-click="deleteClass(clase.id, $index)">
+						<i class="fas fa-trash-alt"></i>
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>
+<div class="col-md-12 spacer"></div>
+
+<div class="footer-bottom" ng-include="myCatedra.layout.footer"></div>
