@@ -124,6 +124,14 @@ angular.module('AulaVirtualApp')
                 url: 'http://localhost:3000/api/v1/categories/0/catedras/'+catedra+'/clases/'+clase,
                 data: catedra
             });
+        },
+
+        getNotifications: function(clase){
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:3000/api/v1/categories/0/catedras/0/clases/'+clase+'/notifications',
+                data: clase
+            });
         }
 
     }

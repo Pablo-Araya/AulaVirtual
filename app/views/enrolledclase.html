@@ -42,21 +42,27 @@
 		<h3>{{clase.title}}</h3>
 		<p>{{clase.description}}</p>
 		<h4 class="container-top">Recursos de la Clase:</h4>
+
+		<div ng-show="alerta.show" class="container container-top container-bottom">
+			<div class="alert alert-danger">
+				<strong>ERROR:</strong><br>
+				{{alerta.message}}
+			</div>	
+		</div>
+
 		<table class="table" ng-repeat="notificacion in notificaciones" ng-cloak>
 			<tr>
-				<td class="col-md-12 text-left">
+				<td colspan="2" class="col-md-12 text-left">
 					<strong>{{notificacion.title}}</strong>
 				</td>
 			</tr>
 			<tr>
-				<td class="col-md-12 text-left">
+				<td class="col-md-9 text-left">
 					<i>{{notificacion.description}}</i>
 				</td>
-			</tr>
-			<tr>
-				<td colspan="2" class="col-md-12 text-center">
-					<button type="button" class="btn btn-success cat-button-go" ng-click="goClass(clase.id)">
-						<i class="fas fa-arrow-circle-right"></i>
+				<td class="col-md-3 text-center" ng-show="notificacion.adjunto">
+					<button type="button" class="btn btn-warning" ng-click="goToAttachedFile(notificacion.adjunto)">
+						<i class="fas fa-paperclip"></i>
 					</button>
 				</td>
 			</tr>

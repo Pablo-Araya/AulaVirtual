@@ -8,7 +8,7 @@
  * Controller of the AulaVirtualApp
  */
 angular.module('AulaVirtualApp')
-  .controller('EnrolledClaseCtrl', function ($scope, $location, catedraService, userService) {
+  .controller('EnrolledClaseCtrl', function ($scope, $location, $window, catedraService, userService) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -25,6 +25,7 @@ angular.module('AulaVirtualApp')
 	$scope.catedraID = {};
 	$scope.claseID = {};
 	$scope.catedra = {};
+	$scope.alerta = {};
 	
 	// obtengo ID de la URI
     var identifier = vm.url.split('/');
@@ -40,6 +41,7 @@ angular.module('AulaVirtualApp')
     		getCategory(res.category_id);
     		getTeacher(res.category_id, res.id);
     		getClase(res.id, $scope.claseID);
+    		getNotifications($scope.claseID);
     	},
     	function(){
     		$location.path('/error');
@@ -82,6 +84,23 @@ angular.module('AulaVirtualApp')
 	            $location.path('/error');
 	        }
 	    );
+	}
+
+	function getNotifications(clase) {
+		catedraService.getNotifications(clase).then(
+	        function(response) {
+	            var res = response.data.data;
+	            $scope.notificaciones = res;
+	        },
+	        function(){
+	            $scope.alerta.show = true;
+	    		$scope.alerta.message = "Lo sentimos, el instructor aún no ha adjuntado ningún recurso para esta clase";
+	        }
+	    );
+	}
+
+	$scope.goToAttachedFile = function(attachedFile) {
+		$window.open(attachedFile);
 	}
 
   });
