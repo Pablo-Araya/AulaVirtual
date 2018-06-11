@@ -20,7 +20,7 @@ Running `grunt test` will run the unit tests with karma.
 - INSTRUCTOR:
   - Crear Clases
   - Crear Notificaciones con adjuntos
-  - Conoces los alumnos inscritos en su Cátedra
+  - Conocer los alumnos inscritos en su Cátedra
 
 - GENERALES:
   - Buscador de NavBar no implementado
